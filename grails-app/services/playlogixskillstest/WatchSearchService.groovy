@@ -31,7 +31,9 @@ class WatchSearchService {
             }
 
             if(warranty > 0){
-                eq('warranty', warranty)
+                and{
+                    eq('warranty', warranty)
+                }
             }
         }
 

@@ -63,6 +63,15 @@
                     <g:checkBox name="brand" value="Swatch" checked="${params.brand?.contains('Swatch')}"/> Swatch <br/>
                     <g:checkBox name="brand" value="Rolex" checked="${params.brand?.contains('Rolex')}" /> Rolex
                 </div>
+
+                <div>
+                    Price: <input type="range" min="0" max="15000" value="${params.price ?: 0}" class="slider" name="price" style="margin-left: 28px" step="500">
+                </div>
+
+                <div>
+                    Warranty: <input type="range" min="0" max="5" value="${params.warranty ?: 0}" class="slider" id="myRange" step="1" name="warranty">
+                </div>
+
                 <g:submitButton name="submit" />
             </g:form>
 

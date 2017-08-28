@@ -96,6 +96,8 @@ class WatchController {
         def results = watchSearchService.search(params.list("brand"), params.price ? params.price as Double: 0.0,
                 params.warranty ? params.warranty as int: 0)
 
+        println(params)
+
         // Just leaving this here as an example of what you could`ve done for simple queries
         //def products = Watch.findAllByBrandLikeAndPriceInRangeAndWarrantyInRange(params.brand, params.price...)
 
