@@ -11,7 +11,7 @@ class WatchSearchService {
      * @param warranty - The warranty duration to find
      * @return A list of products matching the query
      */
-    def search(List<String> brands, Double price, int warranty) {
+    def search(List<String> brands, double price, int warranty) {
         def c = Watch.createCriteria()
 
         List<Watch> products = new ArrayList<Watch>()
@@ -27,12 +27,14 @@ class WatchSearchService {
             }
 
             if(price > 0){
-                eq('price', price)
+                and {
+                    between('price', 0 as Double, price)
+                }
             }
 
             if(warranty > 0){
                 and{
-                    eq('warranty', warranty)
+                    between('warranty', 0, warranty)
                 }
             }
         }

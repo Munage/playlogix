@@ -9,6 +9,18 @@ class WatchController {
 
     def watchSearchService
 
+    /*
+        Handles API queries for watch searches
+    */
+    def search(){
+        def results = watchSearchService.search(params.list("brand"), params.price ? params.price as Double: 0.0,
+                params.warranty ? params.warranty as int : 0)
+
+        flash.message = "Found ${results.size()} matching result(s)"
+
+        render (view: "index", model: [watchInstanceList:results])
+    }
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Watch.list(params), model:[watchInstanceCount: Watch.count()]
@@ -86,22 +98,6 @@ class WatchController {
             }
             '*'{ render status: NO_CONTENT }
         }
-    }
-
-
-    /*
-        Handles API queries for watch searches
-     */
-    def search(){
-        def results = watchSearchService.search(params.list("brand"), params.price ? params.price as Double: 0.0,
-                params.warranty ? params.warranty as int: 0)
-
-        println(params)
-
-        // Just leaving this here as an example of what you could`ve done for simple queries
-        //def products = Watch.findAllByBrandLikeAndPriceInRangeAndWarrantyInRange(params.brand, params.price...)
-
-        render (view: "index", model: [watchInstanceList:results])
     }
 
     protected void notFound() {

@@ -55,7 +55,6 @@
 				<g:paginate total="${watchInstanceCount ?: 0}" />
 			</div>
 
-
             <g:form name="search" action="search" style="margin: 20px;">
                 <h2>Search</h2>
 
@@ -65,7 +64,7 @@
                 </div>
 
                 <div>
-                    Price: <input type="range" min="0" max="15000" value="${params.price ?: 0}" class="slider" name="price" style="margin-left: 28px" step="500">
+                    Price: <input type="range" min="0" max="10000" value="${params.price ?: 0}" class="slider" name="price" style="margin-left: 28px" step="500">
                 </div>
 
                 <div>
