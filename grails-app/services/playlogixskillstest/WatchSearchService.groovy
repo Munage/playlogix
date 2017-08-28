@@ -11,15 +11,19 @@ class WatchSearchService {
      * @param warranty - The warranty duration to find
      * @return A list of products matching the query
      */
-    def search(String brand, Double price, int warranty) {
+    def search(List<String> brands, Double price, int warranty) {
         def c = Watch.createCriteria()
 
         List<Watch> products = new ArrayList<Watch>()
 
         products = c.listDistinct {
 
-            if(brand){
-                ilike('brand', '%'+brand+'%')
+            if(brands){
+                or {
+                    brands.each {
+                        ilike('brand', '%'+it+'%')
+                    }
+                }
             }
 
             if(price > 0){

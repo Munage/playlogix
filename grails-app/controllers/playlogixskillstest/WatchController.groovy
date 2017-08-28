@@ -93,7 +93,7 @@ class WatchController {
         Handles API queries for watch searches
      */
     def search(){
-        def results = watchSearchService.search(params.brand, params.price ? params.price as Double: 0.0,
+        def results = watchSearchService.search(params.list("brand"), params.price ? params.price as Double: 0.0,
                 params.warranty ? params.warranty as int: 0)
 
         // Just leaving this here as an example of what you could`ve done for simple queries

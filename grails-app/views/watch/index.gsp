@@ -20,6 +20,7 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
+
 			<table>
 			<thead>
 					<tr>
@@ -53,6 +54,19 @@
 			<div class="pagination">
 				<g:paginate total="${watchInstanceCount ?: 0}" />
 			</div>
-		</div>
+
+
+            <g:form name="search" action="search" style="margin: 20px;">
+                <h2>Search</h2>
+
+                <div>
+                    <g:checkBox name="brand" value="Swatch" checked="${params.brand?.contains('Swatch')}"/> Swatch <br/>
+                    <g:checkBox name="brand" value="Rolex" checked="${params.brand?.contains('Rolex')}" /> Rolex
+                </div>
+                <g:submitButton name="submit" />
+            </g:form>
+
+
+        </div>
 	</body>
 </html>
