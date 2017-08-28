@@ -1,5 +1,7 @@
 package playlogixskillstest
 
+import grails.converters.JSON
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -10,15 +12,35 @@ class WatchController {
     def watchSearchService
 
     /*
-        Handles API queries for watch searches
+        Handles search queries for watch searches
     */
     def search(){
         def results = watchSearchService.search(params.list("brand"), params.price ? params.price as Double: 0.0,
                 params.warranty ? params.warranty as int : 0)
 
-        flash.message = "Found ${results.size()} matching result(s)"
+        //Post requests from the form go here
+        if(request.post){
+            flash.message = "Found ${results.size()} matching result(s)"
+            render (view: "index", model: [watchInstanceList:results])
+            return
+        }
 
-        render (view: "index", model: [watchInstanceList:results])
+        //Handle get requests
+        withFormat {
+            json {
+                response.status = 200
+                response.contentType = "application/json"
+                response.characterEncoding = "UTF-8"
+                def converter
+                def jsonList = results.collect { watch ->
+                    return [id: watch.id, brand: watch.brand, model: watch.model, price: watch.price,
+                            warranty: watch.warranty]
+                }
+                converter = jsonList as JSON
+                converter.setPrettyPrint(params.pretty == "true")
+                render converter
+            }
+        }
     }
 
     def index(Integer max) {

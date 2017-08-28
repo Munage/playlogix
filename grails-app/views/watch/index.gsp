@@ -55,7 +55,7 @@
 				<g:paginate total="${watchInstanceCount ?: 0}" />
 			</div>
 
-            <g:form name="search" action="search" style="margin: 20px;">
+            <g:form name="search" action="search" method="post" style="margin: 20px;">
                 <h2>Search</h2>
 
                 <div>
